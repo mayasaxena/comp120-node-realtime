@@ -23,7 +23,15 @@ app.use(function(req, res, next){
 io.on('connection', function (socket) {
 
   // subscribe to redis
-  var subscribe = redis.createClient();
+  var subscribe;
+  if (process.env.REDISTOGO_URL) {
+    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    subscribe = require("redis").createClient(rtg.port, rtg.hostname);
+    subscribe.auth(rtg.auth.split(":")[1]);
+  } else {
+      subscribe = redis.createClient();
+  }
+
   subscribe.subscribe('incidents.create');
 
   // relay redis messages to connected socket
