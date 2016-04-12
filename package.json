@@ -1,0 +1,11 @@
+{
+  "name": "comp120-app",
+  "description": "comp120 pub sub app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "socket.io": "1.4.5",
+    "redis": "0.8.x"
+  }
+}
